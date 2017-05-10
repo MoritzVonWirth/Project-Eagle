@@ -22,20 +22,28 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-function autoload($className)
-{
-    $className = ltrim($className, '\\');
-    $fileName  = '';
-    $namespace = '';
-    if ($lastNsPos = strrpos($className, '\\')) {
-        $namespace = substr($className, 0, $lastNsPos);
-        $className = substr($className, $lastNsPos + 1);
-        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-    }
-    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+require('autoload.php');
+require('vendor/autoload.php');
 
-    require $fileName;
+$controller = 'ActionController';
+$action = 'indexAction';
+
+$params = $_GET;
+
+if(array_key_exists('action', $params)) {
+    $action = $params['action'].'Action';
+    unset($params['action']);
 }
-spl_autoload_register('autoload');
-echo 'tt';
-?>
+
+if(array_key_exists('controller', $params)) {
+    $controller = $params['controller'].'Controller';
+    unset($params['controller']);
+}
+
+$controller = '\\PHTH\\ProjectEagle\\Controller\\'.$controller;
+
+echo call_user_func_array(array(new $controller, $action), $params);
+
+// first character groooß für $controller
+
+// check ob Methode existiert (php fkt exist)

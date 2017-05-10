@@ -1,1 +1,4 @@
 /.idea/vcs.xml
+
+tests/_output/*
+/.idea
