@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace PHTH\ProjectEagle\Domain\Model;
 /***************************************************************
 *  Copyright notice
 *
@@ -201,22 +201,22 @@ class User {
     }
 
     /**
-     * Returns the iban
+     * Returns the IBAN
      *
      * @return string
      */
-    public function getIban()
+    public function getIBAN()
     {
         return $this->iban;
     }
 
     /**
-     * Sets the iban
+     * Sets the IBAN
      *
      * @param string $iban
      * @return void
      */
-    public function setIban($iban)
+    public function setIBAN($iban)
     {
         $this->iban = $iban;
     }

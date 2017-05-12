@@ -30,19 +30,47 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
         parent::__construct();
     }
 
-    public function showAction($eingabe)
+    public function showAction()
     {
         $string =  "Hallo Welt";
 
-        //$mysql = new MySql();
+        $this->view->getTemplatePaths()->setTemplatePathAndFilename(__DIR__ . '/../Resources/Private/Templates/User/Show.html');
 
-        $test = $this->view->getTemplatePaths()->setTemplatePathAndFilename(__DIR__ . '/../Resources/Private/Templates/User/Show.html');
-
-        var_dump($test);
         $this->view->assign('test', $string);
 
         $content = $this->view->render();
         return $content;
+    }
+
+    public function registerAction()
+    {
+        $user = new \PHTH\ProjectEagle\Domain\Model\User();
+
+        $this->view->getTemplatePaths()->setTemplatePathAndFilename(__DIR__ . '/../Resources/Private/Templates/User/Register.html');
+
+        $this->view->assign('user', $user);
+
+        $content = $this->view->render();
+        return $content;
+    }
+
+    public function updateAction()
+    {
+        $user = new \PHTH\ProjectEagle\Domain\Model\User();
+
+        $mysql = new \PHTH\ProjectEagle\Persistence\MySqli();
+
+        $user->setUserName($_POST['userName']);
+        $user->setPassword($_POST['password']);
+        $user->setFirstName($_POST['firstName']);
+        $user->setLastName($_POST['lastName']);
+        $user->setIBAN($_POST['iban']);
+        $user->setEmail($_POST['email']);
+
+        $query = "INSERT INTO user (user_name, password, first_name, last_name, iban, email) 
+                  VALUES ('".$user->getUserName()."', '".$user->getPassword()."', '".$user->getFirstName()."', '".$user->getLastName()."', '".$user->getIBAN()."', '".$user->getEmail()."')";
+
+        $mysql->executeQuery($query);
     }
 
 }
