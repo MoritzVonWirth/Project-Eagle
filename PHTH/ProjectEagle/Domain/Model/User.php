@@ -75,6 +75,48 @@ class User {
     protected $iban;
 
     /**
+     * userName is valid
+     *
+     * @var bool
+     */
+    protected $userNameIsValid;
+
+    /**
+     * password is valid
+     *
+     * @var bool
+     */
+    protected $passwordIsValid;
+
+    /**
+     * firstName is valid
+     *
+     * @var bool
+     */
+    protected $firstNameIsValid;
+
+    /**
+     * lastName is valid
+     *
+     * @var bool
+     */
+    protected $lastNameIsValid;
+
+    /**
+     * email is valid
+     *
+     * @var bool
+     */
+    protected $emailIsValid;
+
+    /**
+     * iban is valid
+     *
+     * @var bool
+     */
+    protected $ibanIsValid;
+
+    /**
      * Returns the id
      *
      * @return int
@@ -224,6 +266,134 @@ class User {
     public function hashPassword() {
 
     }
+
+    /**
+     * Returns if the userName is valid
+     *
+     * @return bool
+     */
+    public function isUserNameIsValid()
+    {
+        return $this->userNameIsValid;
+    }
+
+    /**
+     * Sets if the userName is valid
+     *
+     * @param bool $userNameIsValid
+     * @return void
+     */
+    public function setUserNameIsValid($userNameIsValid)
+    {
+        $this->userNameIsValid = $userNameIsValid;
+    }
+
+    /**
+     * Returns if the password is valid
+     *
+     * @return bool
+     */
+    public function isPasswordIsValid()
+    {
+        return $this->passwordIsValid;
+    }
+
+    /**
+     * Sets if the password is valid
+     *
+     * @param bool $passwordIsValid
+     * @return void
+     */
+    public function setPasswordIsValid($passwordIsValid)
+    {
+        $this->passwordIsValid = $passwordIsValid;
+    }
+
+    /**
+     * Returns if the firstname is valid
+     *
+     * @return bool
+     */
+    public function isFirstNameIsValid()
+    {
+        return $this->firstNameIsValid;
+    }
+
+    /**
+     * Sets if the firstName is valid
+     *
+     * @param bool $firstNameIsValid
+     * @return void
+     */
+    public function setFirstNameIsValid($firstNameIsValid)
+    {
+        $this->firstNameIsValid = $firstNameIsValid;
+    }
+
+    /**
+     * Returns if the lastName is valid
+     *
+     * @return bool
+     */
+    public function isLastNameIsValid()
+    {
+        return $this->lastNameIsValid;
+    }
+
+    /**
+     * Sets if the lastName is valid
+     *
+     * @param bool $lastNameIsValid
+     * @return void
+     */
+    public function setLastNameIsValid($lastNameIsValid)
+    {
+        $this->lastNameIsValid = $lastNameIsValid;
+    }
+
+    /**
+     * Returns if the email is valid
+     *
+     * @return bool
+     */
+    public function isEmailIsValid()
+    {
+        return $this->emailIsValid;
+    }
+
+    /**
+     * Sets if the email is valid
+     *
+     * @param bool $emailIsValid
+     * @return void
+     */
+    public function setEmailIsValid($emailIsValid)
+    {
+        $this->emailIsValid = $emailIsValid;
+    }
+
+    /**
+     * Returns if the iban is valid
+     *
+     * @return bool
+     */
+    public function isIbanIsValid()
+    {
+        return $this->ibanIsValid;
+    }
+
+    /**
+     * Sets if the iban is valid
+     *
+     * @param bool $ibanIsValid
+     * @return void
+     */
+    public function setIbanIsValid($ibanIsValid)
+    {
+        $this->ibanIsValid = $ibanIsValid;
+    }
+
+
 
 }
 ?>

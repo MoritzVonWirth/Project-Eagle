@@ -42,15 +42,14 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
         return $content;
     }
 
-    public function registerAction()
+    public function registerAction(\PHTH\ProjectEagle\Domain\Model\User $user = NULL)
     {
-        $user = new \PHTH\ProjectEagle\Domain\Model\User();
-
         $this->view->getTemplatePaths()->setTemplatePathAndFilename(__DIR__ . '/../Resources/Private/Templates/User/Register.html');
 
         $this->view->assign('user', $user);
 
         $content = $this->view->render();
+
         return $content;
     }
 
@@ -67,10 +66,20 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
         $user->setIBAN($_POST['iban']);
         $user->setEmail($_POST['email']);
 
-        $query = "INSERT INTO user (user_name, password, first_name, last_name, iban, email) 
-                  VALUES ('".$user->getUserName()."', '".$user->getPassword()."', '".$user->getFirstName()."', '".$user->getLastName()."', '".$user->getIBAN()."', '".$user->getEmail()."')";
+        $checkIfInputFieldsAreNotEmpty = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreNotEmpty($user);
+        $checkIfInputFieldsAreAlphabetic = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreAlphabetic($user);
 
-        $mysql->executeQuery($query);
+        if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false) {
+            return $this->registerAction($user);
+        }
+
+        else {
+            $query = "INSERT INTO user (user_name, password, first_name, last_name, iban, email) 
+                      VALUES ('".$user->getUserName()."', '".$user->getPassword()."', '".$user->getFirstName()."', '".$user->getLastName()."', '".$user->getIBAN()."', '".$user->getEmail()."')";
+
+            $mysql->executeQuery($query);
+        }
+
     }
 
 }

@@ -2,12 +2,12 @@
 
 <f:section name="main">
     <form action="index.php?controller=user&action=update" method="post" name="register">
-        <p>Benutzername: <input type="text" name="userName" /></p>
-        <p>Passwort: <input type="text" name="password" /></p>
-        <p>E-Mail: <input type="text" name="email" /></p>
-        <p>Vorname: <input type="text" name="firstName" /></p>
-        <p>Nachname: <input type="text" name="lastName" /></p>
-        <p>Iban: <input type="text" name="iban" /></p>
+        <p>Benutzername: <input type="text" name="userName" value="{user.userName}" /></p>
+        <p>Passwort: <input type="text" name="password" value="{user.password}" /></p>
+        <p>E-Mail: <input type="text" name="email" value="{user.email}" /></p>
+        <p>Vorname: <input type="text" name="firstName" value="{user.firstName}" /></p>
+        <p>Nachname: <input type="text" name="lastName" value="{user.lastName}" /></p>
+        <p>Iban: <input type="text" name="iban" value="{user.iban}" /></p>
         <input type="submit" value="Go!" />
     </form>
 </f:section>
