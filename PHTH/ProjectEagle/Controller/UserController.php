@@ -55,6 +55,7 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
 
     public function updateAction()
     {
+        \PHTH\ProjectEagle\Service\MailService::sendMail();
         $user = new \PHTH\ProjectEagle\Domain\Model\User();
 
         $mysql = new \PHTH\ProjectEagle\Persistence\MySqli();
