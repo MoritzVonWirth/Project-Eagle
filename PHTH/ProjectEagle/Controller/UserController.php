@@ -66,21 +66,18 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
         $user->setLastName($_POST['lastName']);
         $user->setEmail($_POST['email']);
 
-        //$checkIfInputFieldsAreNotEmpty = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreNotEmpty($user);
-        //$checkIfInputFieldsAreAlphabetic = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreAlphabetic($user);
-        //$checkIfPasswordIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEnteredPasswordsAreEven($user);
-        //$checkIfEMailIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEmailIsValid($user);
+        $checkIfInputFieldsAreNotEmpty = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreNotEmpty($user);
+        $checkIfInputFieldsAreAlphabetic = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreAlphabetic($user);
+        $checkIfPasswordIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEnteredPasswordsAreEven($user);
+        $checkIfEMailIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEmailIsValid($user);
 
-        //if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false || $checkIfEMailIsValid == false  || $checkIfPasswordIsValid == false) {
+        if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false || $checkIfEMailIsValid == false  || $checkIfPasswordIsValid == false) {
             return $this->registerAction($user);
-        //}
+        }
 
-        //else {
-            $query = "INSERT INTO user (user_name, password, first_name, last_name, iban, email) 
-                      VALUES (?, ?, ?, ?, ?, ?)";
-
-            $mysql->executeQuery($query, $user);
-        //}
+        else {
+            $mysql->executeQuery($user);
+        }
 
     }
 
