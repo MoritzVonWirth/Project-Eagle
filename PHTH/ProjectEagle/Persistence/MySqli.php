@@ -75,7 +75,7 @@ class MySqli {
         if ($stmt->execute())
         {
             $querySuccessful = true;
-            //$stmt->close();
+            $stmt->close();
         }
 
         return $querySuccessful;
