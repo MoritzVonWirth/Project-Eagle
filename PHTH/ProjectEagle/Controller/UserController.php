@@ -61,15 +61,17 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
 
         $user->setUserName($_POST['userName']);
         $user->setPassword($_POST['password']);
+        $user->setRepeatedPassword($_POST['repeatedPassword']);
         $user->setFirstName($_POST['firstName']);
         $user->setLastName($_POST['lastName']);
-        $user->setIBAN($_POST['iban']);
         $user->setEmail($_POST['email']);
 
         $checkIfInputFieldsAreNotEmpty = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreNotEmpty($user);
         $checkIfInputFieldsAreAlphabetic = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreAlphabetic($user);
+        $checkIfPasswordIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEnteredPasswordsAreEven($user);
+        $checkIfEMailIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEmailIsValid($user);
 
-        if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false) {
+        if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false || $checkIfEMailIsValid == false  || $checkIfPasswordIsValid == false) {
             return $this->registerAction($user);
         }
 

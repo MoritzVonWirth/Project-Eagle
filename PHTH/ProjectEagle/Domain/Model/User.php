@@ -47,6 +47,13 @@ class User {
     protected $password;
 
     /**
+     * Repeated Password
+     *
+     * @var string
+     */
+    protected $repeatedPassword;
+
+    /**
      * Firstname
      *
      * @var string
@@ -263,6 +270,24 @@ class User {
         $this->iban = $iban;
     }
 
+    /**
+     * @return string
+     */
+    public function getRepeatedPassword()
+    {
+        return $this->repeatedPassword;
+    }
+
+    /**
+     * Sets the repeated password
+     *
+     * @param string $repeatedPassword
+     */
+    public function setRepeatedPassword($repeatedPassword)
+    {
+        $this->repeatedPassword = $repeatedPassword;
+    }
+
     public function hashPassword() {
 
     }
@@ -377,7 +402,7 @@ class User {
      *
      * @return bool
      */
-    public function isIbanIsValid()
+    public function isIBANIsValid()
     {
         return $this->ibanIsValid;
     }
@@ -388,10 +413,11 @@ class User {
      * @param bool $ibanIsValid
      * @return void
      */
-    public function setIbanIsValid($ibanIsValid)
+    public function setIBANIsValid($ibanIsValid)
     {
         $this->ibanIsValid = $ibanIsValid;
     }
+
 
 
 

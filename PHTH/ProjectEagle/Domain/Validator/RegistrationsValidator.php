@@ -85,4 +85,60 @@ Class RegistrationsValidator {
 
         return $valid;
     }
+
+    /**
+     * @param \PHTH\ProjectEagle\Domain\Model\User $user
+     * @return bool
+     */
+    public static function checkIfEmailIsValid($user) {
+
+        $valid = true;
+
+        $validator = new \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator();
+
+        if (!is_string($user->getEmail())  || !$validator->validEmail($user->getEmail())){
+            $user->setEmailIsValid(0);
+            $valid = false;
+        }
+
+        return $valid;
+    }
+
+    /**
+     * Checking syntax of input email address
+     *
+     * @param string $email Input string to evaluate
+     * @return bool Returns TRUE if the $email (input string) is valid
+     */
+    protected function validEmail($email) {
+        if (!is_string($email)) {
+            return false;
+        }
+        $atPosition = strrpos($email, '@');
+        if (!$atPosition || $atPosition + 1 === strlen($email)) {
+            return false;
+        }
+        $domain = substr($email, $atPosition + 1);
+        $user = substr($email, 0, $atPosition);
+
+        return filter_var($user . '@' . $domain, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    /**
+     * @param \PHTH\ProjectEagle\Domain\Model\User $user
+     * @return bool
+     */
+    public static function checkIfEnteredPasswordsAreEven($user) {
+
+        $valid = true;
+
+        if ($user->getPassword() !=  $user->getRepeatedPassword()){
+            $user->setPasswordIsValid(0);
+            $valid = false;
+        }
+
+        return $valid;
+    }
+
+
 }
