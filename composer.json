@@ -1,6 +1,7 @@
 {
     "require": {
         "codeception/codeception": "^2.2",
-        "typo3fluid/fluid": "^2.3"
+        "typo3fluid/fluid": "^2.3",
+        "swiftmailer/swiftmailer": "^5.4"
     }
 }
