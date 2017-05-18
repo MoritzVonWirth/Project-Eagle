@@ -81,4 +81,19 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
 
     }
 
+    public function confirmateAction(\PHTH\ProjectEagle\Domain\Model\User $user)
+    {
+        $msg = "". $user->getFirstName() ."";
+
+        mail('roberto.natale@phth.de', 'Project Eagle', $msg);
+
+        $this->view->getTemplatePaths()->setTemplatePathAndFilename(__DIR__ . '/../Resources/Private/Templates/User/Confirmation.html');
+
+        $this->view->assign('user', $user);
+
+        $content = $this->view->render();
+
+        return $content;
+    }
+
 }
