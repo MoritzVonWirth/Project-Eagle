@@ -53,17 +53,23 @@ class MySqli {
 
     /**
      * @param $query
+     * @param \PHTH\ProjectEagle\Domain\Model\User $user
      * @return string
      */
-    public function executeQuery($query)
+    public function executeQuery($query, $user)
     {
         $conn = $this->establishConnection();
 
         $querySuccessful = false;
 
-        if ($conn->query($query))
+        $stmt = $conn->prepare('INSERT INTO user (user_name, password, first_name, last_name, iban, email) 
+                      VALUES (?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param('s', $user->getUserName(), $user->getPassword(), $user->getFirstName(), $user->getLastName(), $user->getIBAN(), $user->getEmail());
+
+        if ($stmt->execute())
         {
             $querySuccessful = true;
+            $stmt->close();
         }
 
         return $querySuccessful;
