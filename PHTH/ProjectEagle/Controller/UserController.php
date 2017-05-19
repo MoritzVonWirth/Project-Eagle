@@ -55,7 +55,7 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
 
     public function updateAction()
     {
-        \PHTH\ProjectEagle\Service\MailService::sendMail();
+
         $user = new \PHTH\ProjectEagle\Domain\Model\User();
 
         $mysql = new \PHTH\ProjectEagle\Persistence\MySqli();
@@ -71,22 +71,22 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
         $checkIfInputFieldsAreAlphabetic = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfInputFieldsAreAlphabetic($user);
         $checkIfPasswordIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEnteredPasswordsAreEven($user);
         $checkIfEMailIsValid = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfEmailIsValid($user);
+        $checkIfThereIsOneUsernameEqual = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfThereIsOneUsernameEqual($user);
+        $checkIfThereIsOneEmailEqual = \PHTH\ProjectEagle\Domain\Validator\RegistrationsValidator::checkIfThereIsOneEmailEqual($user);
 
-        if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false || $checkIfEMailIsValid == false  || $checkIfPasswordIsValid == false) {
+        if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false || $checkIfEMailIsValid == false  || $checkIfPasswordIsValid == false || $checkIfThereIsOneUsernameEqual == false || $checkIfThereIsOneEmailEqual == false) {
             return $this->registerAction($user);
         }
 
         else {
-            $mysql->executeQuery($user);
+            $this->userRepository->saveUser($user);
         }
 
     }
 
-    public function confirmateAction(\PHTH\ProjectEagle\Domain\Model\User $user)
+    public function confirmationAction(\PHTH\ProjectEagle\Domain\Model\User $user)
     {
-        $msg = "". $user->getFirstName() ."";
-
-        mail('roberto.natale@phth.de', 'Project Eagle', $msg);
+        \PHTH\ProjectEagle\Service\MailService::sendMail();
 
         $this->view->getTemplatePaths()->setTemplatePathAndFilename(__DIR__ . '/../Resources/Private/Templates/User/Confirmation.html');
 

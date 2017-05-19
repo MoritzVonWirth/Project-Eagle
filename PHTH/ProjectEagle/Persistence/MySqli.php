@@ -29,13 +29,14 @@ class MySqli {
      */
     public function __construct()
     {
-        $this->establishConnection();
+        $conn = $this->establishConnection();
+        return $conn;
     }
 
     /**
      *
      */
-    private function establishConnection()
+    public function establishConnection()
     {
         $host = '127.0.0.1';
         $username = 'root';
@@ -52,25 +53,12 @@ class MySqli {
     }
 
     /**
-     * @param \PHTH\ProjectEagle\Domain\Model\User $user
-     * @return string
+     * @param \PHTH\ProjectEagle\Persistence\MySqli $stmt
+     * @return bool
      */
-    public function executeQuery($user)
+    public function executeQuery($stmt)
     {
-        $conn = $this->establishConnection();
-
         $querySuccessful = false;
-
-        $stmt = $conn->prepare(
-            'INSERT INTO user (
-                    user_name, password, first_name, last_name, email
-                    ) 
-                    VALUES (
-                      ?, ?, ?, ?, ?
-                    )'
-        );
-
-        $stmt->bind_param('sssss', $user->getUserName(), $user->getPassword(), $user->getFirstName(), $user->getLastName(), $user->getEmail());
 
         if ($stmt->execute())
         {
@@ -80,4 +68,6 @@ class MySqli {
 
         return $querySuccessful;
     }
+
+
 }

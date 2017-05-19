@@ -1,5 +1,5 @@
 <?php
-namespace PHTH\ProjectEagle\Controller;
+namespace PHTH\ProjectEagle\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -23,37 +23,19 @@ namespace PHTH\ProjectEagle\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class ActionController {
-
-    protected $view;
+class AbstractRepository {
 
     /**
-     * userRepository
+     * mysqli
      *
-     * @var \PHTH\ProjectEagle\Domain\Repository\UserRepository
+     * @var \PHTH\ProjectEagle\Persistence\MySqli
      * @inject
      */
-    protected $userRepository;
+    protected $conn;
 
     public function __construct()
     {
-        $FLUID_CACHE_DIRECTORY = !isset($FLUID_CACHE_DIRECTORY) ? __DIR__ . '/../cache/' : $FLUID_CACHE_DIRECTORY;
-        $this->view = new \TYPO3Fluid\Fluid\View\TemplateView();
-
-        $paths = $this->view->getTemplatePaths();
-        $paths->setTemplateRootPaths([
-            __DIR__ . '/../Resources/Private/Templates/'
-        ]);
-        $paths->setLayoutRootPaths([
-            __DIR__ . '/../Resources/Private/Layouts/'
-        ]);
-        $paths->setPartialRootPaths([
-            __DIR__ . '/../Resources/Private/Partials/'
-        ]);
+        $this->conn = new \PHTH\ProjectEagle\Persistence\MySqli();
     }
 
-    public function indexAction()
-    {
-
-    }
 }

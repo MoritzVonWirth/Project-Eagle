@@ -1,5 +1,5 @@
 <?php
-namespace PHTH\ProjectEagle\Repository;
+namespace PHTH\ProjectEagle\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -19,11 +19,73 @@ namespace PHTH\ProjectEagle\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 /**
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class UserRepository {
+class UserRepository extends \PHTH\ProjectEagle\Domain\Repository\AbstractRepository {
 
+    /**
+     * saves a new user
+     *
+     * @param \PHTH\ProjectEagle\Domain\Model\User $user
+     */
+    public function saveUser($user)
+    {
+        $conn = $this->conn->establishConnection();
+
+        $stmt = $conn->prepare('INSERT INTO user (
+                    user_name, password, first_name, last_name, email
+                    ) 
+                    VALUES (
+                      ?, ?, ?, ?, ?
+                    )'
+        );
+
+        $stmt->bind_param('sssss', $user->getUserName(), $user->getPassword(), $user->getFirstName(), $user->getLastName(), $user->getEmail());
+
+        $this->conn->executeQuery($stmt);
+    }
+
+    /**
+     * Searches for equal users
+     *
+     * @param string $username
+     * @return int
+     */
+    public function findEqualUsername($username)
+    {
+        $conn = $this->conn->establishConnection();
+
+        $stmt = $conn->prepare('SELECT COUNT(id) FROM user WHERE username = ?');
+
+        $stmt->bind_param('s', $username);
+
+        $result = $this->conn->executeQuery($stmt);
+        return $result;
+    }
+
+    /**
+     * Searches for equal emails
+     *
+     * @param string $email
+     * @return int
+     */
+    public function findEqualEmail($email)
+    {
+        $conn = $this->conn->establishConnection();
+
+        $stmt = $conn->prepare('SELECT COUNT(id) FROM user WHERE email = ?');
+
+        /*
+        $stmt = $this->conn->prepare(
+            'SELECT COUNT(id) FROM user WHERE email = ?'
+        );
+        */
+        $stmt->bind_param('s', $email);
+
+        $result = $this->conn->executeQuery($stmt);
+        return $result;
+    }
 }
-?>

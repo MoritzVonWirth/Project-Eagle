@@ -28,7 +28,8 @@ Class RegistrationsValidator {
      * @param \PHTH\ProjectEagle\Domain\Model\User $user
      * @return bool
      */
-    public static function checkIfInputFieldsAreNotEmpty($user) {
+    public static function checkIfInputFieldsAreNotEmpty($user)
+    {
 
         $valid = true;
 
@@ -64,7 +65,8 @@ Class RegistrationsValidator {
      * @param \PHTH\ProjectEagle\Domain\Model\User $user
      * @return bool
      */
-    public static function checkIfInputFieldsAreAlphabetic($user) {
+    public static function checkIfInputFieldsAreAlphabetic($user)
+    {
 
         $valid = true;
 
@@ -90,7 +92,8 @@ Class RegistrationsValidator {
      * @param \PHTH\ProjectEagle\Domain\Model\User $user
      * @return bool
      */
-    public static function checkIfEmailIsValid($user) {
+    public static function checkIfEmailIsValid($user)
+    {
 
         $valid = true;
 
@@ -110,7 +113,8 @@ Class RegistrationsValidator {
      * @param string $email Input string to evaluate
      * @return bool Returns TRUE if the $email (input string) is valid
      */
-    protected function validEmail($email) {
+    protected function validEmail($email)
+    {
         if (!is_string($email)) {
             return false;
         }
@@ -128,13 +132,38 @@ Class RegistrationsValidator {
      * @param \PHTH\ProjectEagle\Domain\Model\User $user
      * @return bool
      */
-    public static function checkIfEnteredPasswordsAreEven($user) {
+    public static function checkIfEnteredPasswordsAreEven($user)
+    {
 
-        $valid = true;
+        $valid = false;
 
-        if ($user->getPassword() !=  $user->getRepeatedPassword()){
-            $user->setPasswordIsValid(0);
-            $valid = false;
+        if ($user->getPassword() ==  $user->getRepeatedPassword()){
+            $user->setPasswordIsValid(1);
+            $valid = true;
+        }
+
+        return $valid;
+    }
+
+    public static function checkIfThereIsOneUsernameEqual(\PHTH\ProjectEagle\Domain\Model\User $user)
+    {
+        $userRepository = new \PHTH\ProjectEagle\Domain\Repository\UserRepository();
+        $valid = false;
+
+        if($userRepository->findEqualUsername($user->getUsername()) >= 0){
+            $valid = true;
+        }
+
+        return $valid;
+    }
+
+    public static function checkIfThereIsOneEmailEqual(\PHTH\ProjectEagle\Domain\Model\User $user)
+    {
+        $userRepository = new \PHTH\ProjectEagle\Domain\Repository\UserRepository();
+        $valid = false;
+
+        if(count($userRepository->findEqualEmail($user->getEmail()) >= 0)){
+            $valid = true;
         }
 
         return $valid;
