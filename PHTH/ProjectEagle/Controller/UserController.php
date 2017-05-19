@@ -55,10 +55,7 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
 
     public function updateAction()
     {
-
         $user = new \PHTH\ProjectEagle\Domain\Model\User();
-
-        $mysql = new \PHTH\ProjectEagle\Persistence\MySqli();
 
         $user->setUserName($_POST['userName']);
         $user->setPassword($_POST['password']);
@@ -76,9 +73,7 @@ class UserController extends \PHTH\ProjectEagle\Controller\ActionController {
 
         if ($checkIfInputFieldsAreNotEmpty == false || $checkIfInputFieldsAreAlphabetic == false || $checkIfEMailIsValid == false  || $checkIfPasswordIsValid == false || $checkIfThereIsOneUsernameEqual == false || $checkIfThereIsOneEmailEqual == false) {
             return $this->registerAction($user);
-        }
-
-        else {
+        } else {
             $this->userRepository->saveUser($user);
         }
 

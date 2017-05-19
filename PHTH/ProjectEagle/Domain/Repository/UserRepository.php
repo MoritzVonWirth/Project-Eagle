@@ -33,9 +33,7 @@ class UserRepository extends \PHTH\ProjectEagle\Domain\Repository\AbstractReposi
      */
     public function saveUser($user)
     {
-        $conn = $this->conn->establishConnection();
-
-        $stmt = $conn->prepare('INSERT INTO user (
+        $stmt = $this->conn->prepare('INSERT INTO user (
                     user_name, password, first_name, last_name, email
                     ) 
                     VALUES (
@@ -56,13 +54,11 @@ class UserRepository extends \PHTH\ProjectEagle\Domain\Repository\AbstractReposi
      */
     public function findEqualUsername($username)
     {
-        $conn = $this->conn->establishConnection();
-
-        $stmt = $conn->prepare('SELECT COUNT(id) FROM user WHERE username = ?');
+        $stmt = $this->conn->prepare('SELECT COUNT(id) FROM user WHERE user_name = ?');
 
         $stmt->bind_param('s', $username);
 
-        $result = $this->conn->executeQuery($stmt);
+        $result = $this->executeQuery($stmt);
         return $result;
     }
 
@@ -74,18 +70,12 @@ class UserRepository extends \PHTH\ProjectEagle\Domain\Repository\AbstractReposi
      */
     public function findEqualEmail($email)
     {
-        $conn = $this->conn->establishConnection();
 
-        $stmt = $conn->prepare('SELECT COUNT(id) FROM user WHERE email = ?');
+        $stmt = $this->conn->prepare('SELECT COUNT(id) FROM user WHERE email = ?');
 
-        /*
-        $stmt = $this->conn->prepare(
-            'SELECT COUNT(id) FROM user WHERE email = ?'
-        );
-        */
         $stmt->bind_param('s', $email);
 
-        $result = $this->conn->executeQuery($stmt);
+        $result = $this->executeQuery($stmt);
         return $result;
     }
 }

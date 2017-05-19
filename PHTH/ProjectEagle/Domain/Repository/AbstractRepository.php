@@ -23,19 +23,49 @@ namespace PHTH\ProjectEagle\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class AbstractRepository {
+abstract class AbstractRepository {
 
     /**
-     * mysqli
-     *
-     * @var \PHTH\ProjectEagle\Persistence\MySqli
-     * @inject
+     * MySql constructor.
      */
-    protected $conn;
-
     public function __construct()
     {
-        $this->conn = new \PHTH\ProjectEagle\Persistence\MySqli();
+        $this->conn = $this->establishConnection();
     }
 
+    /**
+     * @return \mysqli
+     */
+    private function establishConnection()
+    {
+        $host = '127.0.0.1';
+        $username = 'root';
+        $password = '';
+        $database = 'project_eagle';
+
+        $conn = new \mysqli($host, $username, $password, $database);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        return $conn;
+    }
+
+    /**
+     * @param \PHTH\ProjectEagle\Persistence\MySqli $stmt
+     * @return bool
+     */
+    public function executeQuery($stmt)
+    {
+        $querySuccessful = false;
+
+        if ($stmt->execute())
+        {
+            $querySuccessful = true;
+            $stmt->close();
+        }
+
+        return $querySuccessful;
+    }
 }
