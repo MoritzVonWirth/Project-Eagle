@@ -1,0 +1,49 @@
+<?php
+namespace PHTH\ProjectEagle\Resources\Language;
+
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2017
+ *  Roberto Natale <roberto.natale@phth.de>, PHTH
+ *  Moritz von Wirth <moritz.vonwirth@phth.de>, PHTH
+ *
+ *  All rights reserved
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURpointOfSaleE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+/**
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ */
+
+const ERROR_CODE_1 = 'Das Feld darf nicht leer sein.';
+
+const ERROR_CODE_2 = 'Das Feld darf nicht leer sein.';
+
+const ERROR_CODE_3 = 'Das Feld darf nicht leer sein.';
+
+const ERROR_CODE_4 = 'Das Feld darf nicht leer sein.';
+
+const ERROR_CODE_5 = 'Das Feld darf nicht leer sein.';
+
+const ERROR_CODE_6 = 'Es sind nur folgende Zeichen erlaubt: a-z, A-z und Zahlen von 0-9.';
+
+const ERROR_CODE_7 = 'Es sind nur folgende Zeichen erlaubt: a-z, A-z und Zahlen von 0-9.';
+
+const ERROR_CODE_8 = 'Es sind nur folgende Zeichen erlaubt: a-z, A-z und Zahlen von 0-9.';
+
+const ERROR_CODE_9 = 'Diese Emailadresse ist nicht korrekt.';
+
+const ERROR_CODE_10 = 'Die beiden Passwörter stimmen nicht überein.';
+
+const ERROR_CODE_11 = 'Es existiert bereits ein Nutzer mit diesem Benutzernamen.';
+
+const ERROR_CODE_12 = 'Es existiert bereits ein Nutzer mit dieser Emailadresse.';

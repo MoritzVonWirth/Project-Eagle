@@ -1,4 +1,5 @@
 <?php
+namespace PHTH\ProjectEagle\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
@@ -18,33 +19,16 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-define(PATH_site, getcwd());
+class TranslateViewHelper extends AbstractViewHelper {
 
-require_once('autoload.php');
-require_once('vendor/autoload.php');
-
-$controller = 'ActionController';
-$action = 'indexAction';
-
-$params = $_GET;
-
-if(array_key_exists('action', $params)) {
-    $action = $params['action'].'Action';
-    unset($params['action']);
+    public function render()
+    {
+        var_dump(PATH_site.'\\PHTH\\ProjectEagle\\Resources\\Language\\de.locallang.xlf');
+        die();
+    }
 }
-
-if(array_key_exists('controller', $params)) {
-    $controller = $params['controller'].'Controller';
-    unset($params['controller']);
-}
-
-$controller = '\\PHTH\\ProjectEagle\\Controller\\'.$controller;
-
-echo call_user_func_array(array(new $controller, $action), $params);
-
-// first character groooß für $controller
-
-// check ob Methode existiert (php fkt exist)

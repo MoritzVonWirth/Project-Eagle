@@ -1,3 +1,4 @@
+{namespace pe=PHTH\ProjectEagle\ViewHelpers}
 <f:layout name="Default" />
 
 <f:section name="main">
@@ -9,5 +10,6 @@
         <p>Passwort wiederholen: <input type="text" name="repeatedPassword" /></p>
         <p>E-Mail: <input type="text" name="email" value="{user.email}" /></p>
         <input type="submit" value="Go!" />
+        <pe:translate />
     </form>
 </f:section>
